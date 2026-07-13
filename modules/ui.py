@@ -10,6 +10,8 @@ class UI():
     def __init__(self):
         pass
 
+
+
     def _parse_inputs(self, inputs: list) -> list:
         inputs_list = inputs.split(".")
 
@@ -35,6 +37,12 @@ class UI():
             inputs_list.extend(after_list)
             i += 1
 
+        for index in range(0, len(inputs_list)):
+            input = inputs_list[index]
+            input = input.strip()
+            input = input.lower()
+            inputs_list[index] = input
+
         return inputs_list
 
     # gets player inputs and parses them into commands that can be later validated and process by game manager
@@ -50,11 +58,13 @@ class UI():
         os.system('cls||clear')
 
     def update(self, gm):
+        print("------------------------------")
         print("new screen")
         print(f"Current game mode: {gm.get_current_mode()}")
 
         updates = gm.give_updates()
-        print(f"Updates since last turn:\n")
+        print(f"Updates since last turn:")
         for update in updates:
             print(f"* {update}")
         print(f"Current world state {gm.get_current_world()}")
+        print("\n")

@@ -31,13 +31,12 @@ class GameManager():
         for action in self.actions:
             # process the action
             self.updates.append(action)
+            if action == "exit game":
+                self.mode = GameMode.EXIT
 
         match self.mode:
             case GameMode.MENU:
                 self.mode = GameMode.GAME
-
-            case GameMode.GAME:
-                self.mode = GameMode.EXIT
 
     def generate_actions(self, commands: list) -> None:
 
