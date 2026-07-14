@@ -10,47 +10,40 @@ class UI():
     def __init__(self):
         pass
 
+    def _parse_inputs(self, inputs_list: list, separator: str):
+        work_list: list = []
+        index: int = 0
 
+        while index < len(inputs_list):
+            current_split: list = inputs_list[index].split(separator)
+            work_list.extend(current_split)
 
-    def _parse_inputs(self, inputs: list) -> list:
-        inputs_list = inputs.split(".")
+            index += 1
 
-        i: int = 0
-        while i < len(inputs_list):
-            before_list = inputs_list[:i]
-            current_list = inputs_list[i].split(",")
-            after_list = inputs_list[i+1:]
+        for index in range(0, len(work_list)):
+            item = work_list[index]
+            item = item.strip()
+            item = item.lower()
+            work_list[index] = item
 
-            inputs_list = before_list
-            inputs_list.extend(current_list)
-            inputs_list.extend(after_list)
-            i += 1
+        return work_list
 
-        i: int = 0
-        while i < len(inputs_list):
-            before_list = inputs_list[:i]
-            current_list = inputs_list[i].split(";")
-            after_list = inputs_list[i+1:]
+    def _get_commands(self, inputs: list) -> list:
 
-            inputs_list = before_list
-            inputs_list.extend(current_list)
-            inputs_list.extend(after_list)
-            i += 1
+        separators: list = [".", ";", ",", "and"]
+        work_list = inputs
 
-        for index in range(0, len(inputs_list)):
-            input = inputs_list[index]
-            input = input.strip()
-            input = input.lower()
-            inputs_list[index] = input
+        for separator in separators:
+            work_list = self._parse_inputs(work_list, separator)
 
-        return inputs_list
+        return work_list
 
     # gets player inputs and parses them into commands that can be later validated and process by game manager
     def get_player_commands(self) -> list:
-        inputs: list = []
         inputs = input("your word is my command: \n")
+        inputs = [inputs]
 
-        commands = self._parse_inputs(inputs)
+        commands = self._get_commands(inputs)
 
         return commands
 
@@ -67,4 +60,4 @@ class UI():
         for update in updates:
             print(f"* {update}")
         print(f"Current world state {gm.get_current_world()}")
-        print("\n")
+        #print("\n")

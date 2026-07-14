@@ -7,9 +7,9 @@ def main():
 
     ui = UI()
     game_manager = GameManager()
-    game_manager.start()
 
     ui.refresh()
+    game_manager.start()
 
     while game_manager.mode != GameMode.EXIT:
         # potential structure:

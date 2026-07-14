@@ -7,6 +7,9 @@ from enum import Enum
 #from actor import Player
 
 # defenitions
+ACITIONS = {
+    "QUIT": ["exit", "exit game", "quit", ":q"],}
+
 class GameMode(Enum):
     EXIT = "exit"
     MENU = "system_menu"
