@@ -4,7 +4,7 @@
 from enum import Enum
 
 # local imports
-#from actor import Player
+from actor import Actor, Player
 
 # defenitions
 ACITIONS = {
