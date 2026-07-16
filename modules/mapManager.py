@@ -5,11 +5,21 @@
 # local imports
 from actor import Actor
 
-# Manages a list of locations - different wapoint, settlements and home city. All locations
-class WorldMap():
-    def __init__(self):
-        self.locations: list = []
+class MapManager(self)
+    def __init__(self, *args, **kwargs):
+        pass
 
+    def generate_map(self, seed):
+        pass
+
+    def load_map(self, file):
+        pass
+
+
+# Contains a list of locations - different wapoints, settlements and home city.
+class WorldMap():
+    def __init__(self, locations):
+        self.locations: list = locations
 
 # locations consist from specific scenes.
 class Location():
