@@ -10,7 +10,14 @@ class MapManager(self)
         pass
 
     def generate_map(self, seed):
-        pass
+
+        scenes: list = []
+
+        scenes[0] = new Scene(
+            "You are standing and abandoned campt, hidden form frozen winds under a giant sharp rock formation")
+        scenes[1] = new Scene(
+            "You are standing and abandoned campt, hidden form frozen winds under a giant sharp rock formation")
+
 
     def load_map(self, file):
         pass
@@ -21,6 +28,9 @@ class WorldMap():
     def __init__(self, locations):
         self.locations: list = locations
 
+    def _connect_locations(self, location1, location2):
+        pass
+
 # locations consist from specific scenes.
 class Location():
     def __init__(self, scenes, connections) -> None:
@@ -29,13 +39,21 @@ class Location():
         # connections to other locations reachable from the location
         self.connections: list = connections
 
+    def _connect_scenes(scene1, scene2, direction12, directon21):
+        if scene1 in self.scenes and scene2 in self.scenes:
+            new_transition(scene1, scene2, direction12, directon21)
+
 class Scene():
-    def __init__(self, description, interactable, actors, items, connections):
+    def __init__(self, description = "NOWERE", interactable = [], actors = [], items = []):
         self.description: str = description
         self.interactable : list = interactable
         self.actors: list = actors
         self.items: list = items
-        self.connections: list = connections
+        self.transitions: list = []
+
+    def _add_transition(transition) -> None:
+        if self in transition.scenes:
+            self.transitions.append(transition)
 
     def _add_actor(self, new_actor) -> None:
         self.actors.extend(new_actor)
@@ -44,6 +62,16 @@ class Scene():
         if actor in self.actors:
             self.actors.remove(actor)
 
-class Connection():
-    def __init__(self, to_location, diffcuty, distance)
-        self.to_location
+class Passage():
+    # potantially will have some kind of fiel for traversal event genreation logic, but not rn
+    def __init__(self, location1, location2, diffcuty, distance)
+        self.locations = [location1, location2]
+        self.diffcuty = diffcuty
+        self.distance = distance
+
+class Transition():
+    def __init__(self, scene1, scene2, direction12, directon21):
+        self.scene1 = scene1
+        self.direction12 = direction12
+        self.scene2 = scene2
+        self.direction21 = direction21
