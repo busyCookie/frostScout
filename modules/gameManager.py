@@ -42,6 +42,7 @@ class GameManager():
                 self.mode = GameMode.GAME
 
     def generate_actions(self, commands: list) -> None:
+        commands.reverse()
 
         self.actions: list = []
         while len(commands) > 0:
