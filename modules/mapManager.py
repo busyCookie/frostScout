@@ -39,21 +39,21 @@ class Location():
         # connections to other locations reachable from the location
         self.connections: list = connections
 
-    def _connect_scenes(scene1, scene2, direction12, directon21):
+    def _connect_scenes(scene1, scene2, direction12, direction21):
         if scene1 in self.scenes and scene2 in self.scenes:
-            new_transition(scene1, scene2, direction12, directon21)
+            scene1._add_transition(direction12, scene2)
+            scene2._add_transition(direction21, scene1)
 
 class Scene():
-    def __init__(self, description = "NOWERE", interactable = [], actors = [], items = []):
+    def __init__(self, description = "NOWHERE", interactable = [], actors = [], items = []):
         self.description: str = description
         self.interactable : list = interactable
         self.actors: list = actors
         self.items: list = items
-        self.transitions: list = []
+        self.transitions: dict = {}
 
-    def _add_transition(transition) -> None:
-        if self in transition.scenes:
-            self.transitions.append(transition)
+    def _add_transition(direction, scene) -> None:
+        self.transition[direction] = scene
 
     def _add_actor(self, new_actor) -> None:
         self.actors.extend(new_actor)
@@ -68,10 +68,3 @@ class Passage():
         self.locations = [location1, location2]
         self.diffcuty = diffcuty
         self.distance = distance
-
-class Transition():
-    def __init__(self, scene1, scene2, direction12, directon21):
-        self.scene1 = scene1
-        self.direction12 = direction12
-        self.scene2 = scene2
-        self.direction21 = direction21
