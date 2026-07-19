@@ -1,5 +1,6 @@
 # This module defines all active entities in the game:
 # player character/s, hostile and neutral npc/mobs/animals
+
 class Actor():
     def __init__(self,
                  name: str,
@@ -37,13 +38,11 @@ class Player(actor):
                  hp: int,
                  speed: int,
                  spirit: int,
-                 inventory: list
+                 inventory: list = []
                  ) -> None:
 
         super().__init__(name, hp, speed)
-        self.current_hp: int = hp
-        self.max_hp: int = hp
-        self.spirit: int = talent
-        self.inventory: list = inventory
+        self.spirit = spirit
+        self.inventory = inventory
 
 

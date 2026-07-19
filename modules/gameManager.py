@@ -29,6 +29,12 @@ class GameManager():
 
     def start(self):
         self.mode = GameMode.MENU
+        player = new Player(
+            "Lusor Novus",
+            10, 10, 0, [])
+
+        mapManager = new mapManager()
+        mapManager.generate_map(0, player)
 
     def update(self):
         for action in self.actions:
