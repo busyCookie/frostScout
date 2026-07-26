@@ -15,9 +15,8 @@ class MapManager(self)
 
         scenes[0] = new Scene(
             "camp",
-            "You are standing and abandoned campt, hidden form frozen winds under a giant sharp rock formation.")
+            "You are standing at abandoned camp, which is hiding form frozen winds under a giant sharp rock formation.")
 
-        scenes[0]._add_actor(player)
         scenes[1] = new Scene(
             "ruined building",
             "You are looking at stone rouing of small building, probably someone's hom before the long winters came.")
@@ -27,22 +26,26 @@ class MapManager(self)
             "solitary rock",
             scenes)
 
-        locations[0]._connect_scenes(locations[0].scene[0], "east", locations[0].scene[1], "west")
+        locations[0]._connect_scenes(locations[0].scene[0], "east", locations[0].scene[1])
+        locations[0]._connect_scenes(locations[0].scene[1], "west", locations[0].scene[0])
 
-        worldMap = new WolrdMap(locations)
+        worldMap = new WolrdMap(locations, scene[0])
+        worldMap.player_start(player)
 
     def load_map(self, file):
         pass
 
-    def put_player()
-
 # Contains a list of locations - different wapoints, settlements and home city.
 class WorldMap():
-    def __init__(self, locations):
+    def __init__(self, locations, start_scene):
         self.locations: list = locations
+        self.start_scene
 
     def _connect_locations(self, location1, location2):
         pass
+
+    def place_player(player):
+        self.start_scene._add_actor(player)
 
 # locations consist from specific scenes.
 class Location():
@@ -57,10 +60,9 @@ class Location():
         if scene not in self.scenes:
             self.scenes.append(scene)
 
-    def _connect_scenes(scene1, direction12, scene2, direction21):
+    def _connect_scenes(scene1, direction, scene2):
         if scene1 in self.scenes and scene2 in self.scenes:
-            scene1._add_transition(direction12, scene2)
-            scene2._add_transition(direction21, scene1)
+            scene1._add_transition(direction, scene2)
 
 class Scene():
     def __init__(self, description = "NOWHERE", interactable = [], actors = [], items = []):

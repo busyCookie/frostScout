@@ -32,13 +32,14 @@ class Actor():
         pass
 
 
-class Player(actor):
+class Character(actor):
     def __init__(self,
                  name: str,
                  hp: int,
                  speed: int,
                  spirit: int,
                  inventory: list = []
+                 is_player: bool = false
                  ) -> None:
 
         super().__init__(name, hp, speed)
