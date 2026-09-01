@@ -46,4 +46,5 @@ class Character(actor):
         self.spirit = spirit
         self.inventory = inventory
 
-
+    def _is_player(self):
+        return self.is_player

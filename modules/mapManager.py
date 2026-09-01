@@ -29,8 +29,8 @@ class MapManager(self)
         locations[0]._connect_scenes(locations[0].scene[0], "east", locations[0].scene[1])
         locations[0]._connect_scenes(locations[0].scene[1], "west", locations[0].scene[0])
 
-        worldMap = new WolrdMap(locations, scene[0])
-        worldMap.player_start(player)
+        worldMap = new WolrdMap("frolstaland", locations, scene[0])
+        worldMap._launch_player(player)
 
     def load_map(self, file):
         pass
@@ -44,13 +44,20 @@ class WorldMap():
     def _connect_locations(self, location1, location2):
         pass
 
-    def place_player(player):
+    def _launch_player(player):
+        for location in self.location:
+            for scene in location.scenes:
+                for actor in scene.actors:
+                    if actor._is_player():
+                        raise Exception("Player already present in the game world")
+
         self.start_scene._add_actor(player)
 
 # locations consist from specific scenes.
 class Location():
-    def __init__(self, name, scenes = []) -> None:
+    def __init__(self, name, world = None, scenes = []) -> None:
         self.name = name
+        self.world = world
         # scenes contained in location
         self.scenes = scenes
         # connections to other locations reachable from the location
@@ -60,6 +67,9 @@ class Location():
         if scene not in self.scenes:
             self.scenes.append(scene)
 
+        if scene.parent != self:
+            scene
+
     def _connect_scenes(scene1, direction, scene2):
         if scene1 in self.scenes and scene2 in self.scenes:
             scene1._add_transition(direction, scene2)
@@ -67,10 +77,12 @@ class Location():
 class Scene():
     def __init__(self, description = "NOWHERE", interactable = [], actors = [], items = []):
         self.name = name
+        self.parent = None
         self.description: str = description
         self.interactable : list = interactable
         self.actors: list = actors
         self.items: list = items
+        self.tags: list = []
         self.transitions: dict = {}
 
     def _add_transition(direction, scene) -> None:

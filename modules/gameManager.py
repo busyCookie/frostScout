@@ -15,8 +15,11 @@ class GameMode(Enum):
     MENU = "system_menu"
     GAME = "in_game"
 
-class WordState(Enum):
-    UNDEFINED = "primordial chaos"
+class WordState():
+    self.player = None
+    self.current_world
+    self.current_location
+    self.current_scene
 
 #Game Manager
 class GameManager():
