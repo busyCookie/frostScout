@@ -4,7 +4,8 @@
 from enum import Enum
 
 # local imports
-from actor import Actor, Player
+from modules.actor import Actor, gameCharacter
+from modules.mapManager import MapManager
 
 # defenitions
 ACITIONS = {
@@ -16,27 +17,26 @@ class GameMode(Enum):
     GAME = "in_game"
 
 class WordState():
-    self.player = None
-    self.current_world
-    self.current_location
-    self.current_scene
+    def __init__(self):
+        self.player = None
+        self.current_world = None
+        self.current_location = None
+        self.current_scene = None
 
 #Game Manager
 class GameManager():
     def __init__(self):
         self.mode = GameMode.EXIT
-        self.world_state = WordState.UNDEFINED
+        self.world_state = WordState()
         self.actions: list = []
         self.updates: list = []
         self.history: list = []
 
     def start(self):
         self.mode = GameMode.MENU
-        player = new Character(
-            "Lusor Novus",
-            10, 10, 0, [{"ration", 3}, {"sword", 1}], true)
+        player = gameCharacter("Lusor Novus", 10, 10, 0, [{"ration", 3}, {"sword", 1}], True)
 
-        mapManager = new mapManager()
+        mapManager = MapManager()
         mapManager.generate_map(0, player)
 
     def update(self):

@@ -5,7 +5,7 @@ class Actor():
     def __init__(self,
                  name: str,
                  hp: int,
-                 speed int
+                 speed: int
                  ) -> None:
 
         self.name: str = name
@@ -32,19 +32,20 @@ class Actor():
         pass
 
 
-class Character(actor):
+class gameCharacter(Actor):
     def __init__(self,
                  name: str,
                  hp: int,
                  speed: int,
-                 spirit: int,
-                 inventory: list = []
-                 is_player: bool = false
+                 talent: int,
+                 inventory: list = [],
+                 is_player: bool = False
                  ) -> None:
 
         super().__init__(name, hp, speed)
-        self.spirit = spirit
+        self.talent = talent
         self.inventory = inventory
+        self.is_player = is_player
 
     def _is_player(self):
         return self.is_player

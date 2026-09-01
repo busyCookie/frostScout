@@ -3,9 +3,9 @@
 # external imports
 
 # local imports
-from actor import Actor
+from modules.actor import Actor
 
-class MapManager(self)
+class MapManager():
     def __init__(self, *args, **kwargs):
         pass
 
@@ -13,23 +13,26 @@ class MapManager(self)
 
         scenes: list = []
 
-        scenes[0] = new Scene(
+        scenes.append(Scene(
             "camp",
-            "You are standing at abandoned camp, which is hiding form frozen winds under a giant sharp rock formation.")
+            "You are standing at abandoned camp, which is hiding form frozen winds under a giant sharp rock formation."))
 
-        scenes[1] = new Scene(
+        scenes.append(Scene(
             "ruined building",
-            "You are looking at stone rouing of small building, probably someone's hom before the long winters came.")
+            "You are looking at stone ruins of a small building. Probably it was someone's home, before the long winters came."))
 
         locations: list = []
-        locations[0] = new Location(
+        locations.append(Location(
             "solitary rock",
-            scenes)
+            scenes))
 
-        locations[0]._connect_scenes(locations[0].scene[0], "east", locations[0].scene[1])
-        locations[0]._connect_scenes(locations[0].scene[1], "west", locations[0].scene[0])
+        for scene in locations[0].scenes:
+            console.log(f"index: {locations[0].scenes.index(scene)}")
 
-        worldMap = new WolrdMap("frolstaland", locations, scene[0])
+        #locations[0]._connect_scenes(locations[0].scenes[0], "east", locations[0].scenes[1])
+        #locations[0]._connect_scenes(locations[0].scenes[1], "west", locations[0].scenes[0])
+
+        worldMap = WorldMap("frolstaland", locations, scenes[0])
         worldMap._launch_player(player)
 
     def load_map(self, file):
@@ -37,15 +40,16 @@ class MapManager(self)
 
 # Contains a list of locations - different wapoints, settlements and home city.
 class WorldMap():
-    def __init__(self, locations, start_scene):
+    def __init__(self, name, locations, start_scene):
+        self.name = name
         self.locations: list = locations
-        self.start_scene
+        self.start_scene = start_scene
 
     def _connect_locations(self, location1, location2):
         pass
 
-    def _launch_player(player):
-        for location in self.location:
+    def _launch_player(self, player):
+        for location in self.locations:
             for scene in location.scenes:
                 for actor in scene.actors:
                     if actor._is_player():
@@ -75,7 +79,7 @@ class Location():
             scene1._add_transition(direction, scene2)
 
 class Scene():
-    def __init__(self, description = "NOWHERE", interactable = [], actors = [], items = []):
+    def __init__(self, name, description = "NOWHERE", interactable = [], actors = [], items = []):
         self.name = name
         self.parent = None
         self.description: str = description
@@ -89,7 +93,7 @@ class Scene():
         self.transition[direction] = scene
 
     def _add_actor(self, new_actor) -> None:
-        self.actors.extend(new_actor)
+        self.actors.append(new_actor)
 
     def _remove_actor(self, actor) -> None:
         if actor in self.actors:
@@ -97,7 +101,7 @@ class Scene():
 
 class Passage():
     # potantially will have some kind of fiel for traversal event genreation logic, but not rn
-    def __init__(self, location1, location2, diffcuty, distance)
+    def __init__(self, location1, location2, diffcuty, distance):
         self.locations = [location1, location2]
         self.diffcuty = diffcuty
         self.distance = distance
