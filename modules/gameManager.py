@@ -8,8 +8,14 @@ from modules.actor import Actor, gameCharacter
 from modules.mapManager import MapManager
 
 # defenitions
-ACITIONS = {
-    "QUIT": ["exit", "exit game", "quit", ":q"],}
+ACTIONS = {
+    "QUIT": ["exit", "exit game", "quit", ":q"]}
+
+ACTIONS_LOOKUP = {
+    alias: action
+    for action, aliases in ACTIONS.items()
+    for alias in aliases
+    }
 
 class GameMode(Enum):
     EXIT = "exit"
@@ -43,7 +49,7 @@ class GameManager():
         for action in self.actions:
             # process the action
             self.updates.append(action)
-            if action == "exit game":
+            if action == "QUIT":
                 self.mode = GameMode.EXIT
 
         match self.mode:
@@ -55,7 +61,9 @@ class GameManager():
 
         self.actions: list = []
         while len(commands) > 0:
-            self.actions.append(commands.pop())
+            command = commands.pop()
+            action = ACTIONS_LOOKUP.get(command)
+            self.actions.append(action)
 
     def get_current_mode(self):
         return self.mode
