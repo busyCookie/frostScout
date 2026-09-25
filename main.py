@@ -3,7 +3,7 @@ from modules.ui import UI
 
 def main():
     exit: bool = False
-    commands: list = [] # parsed list of player inputs?
+    commands: list = [] # list of intended actions for all active characters in game.
 
     ui = UI()
     game_manager = GameManager()

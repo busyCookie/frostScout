@@ -7,9 +7,11 @@ from enum import Enum
 from modules.actor import Actor, gameCharacter
 from modules.mapManager import MapManager
 
-# defenitions
+# definitions
 ACTIONS = {
-    "QUIT": ["exit", "exit game", "quit", ":q"]}
+    "QUIT": ["exit", "exit game", "quit", ":q"],
+    "LOOK": ["look at", "look"],
+    "MOVE": ["move", "go"]}
 
 ACTIONS_LOOKUP = {
     alias: action
@@ -21,6 +23,7 @@ class GameMode(Enum):
     EXIT = "exit"
     MENU = "system_menu"
     GAME = "in_game"
+    DIALOG = "in_dialog"
 
 class WordState():
     def __init__(self):
@@ -62,7 +65,10 @@ class GameManager():
         self.actions: list = []
         while len(commands) > 0:
             command = commands.pop()
-            action = ACTIONS_LOOKUP.get(command)
+
+            command.split()
+
+            action = ACTIONS_LOOKUP.get(command[0])
             self.actions.append(action)
 
     def get_current_mode(self):
